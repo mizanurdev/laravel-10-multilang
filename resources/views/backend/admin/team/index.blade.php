@@ -14,7 +14,8 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">Teams</h4>
-                    <a href="" class="btn btn-primary btn-round">Add Team</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal-form" class="btn btn-primary btn-round">Add Team</a>
+                    @include('backend.admin.team.create')
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -23,39 +24,41 @@
                                 <tr>
                                     <th>Sl</th>
                                     <th>Image</th>
-                                    <th>Name</th>
+                                    <th>En Name</th>
                                     <th>Bn Name</th>
-                                    <th>Designation</th>
+                                    <th>En Designation</th>
                                     <th>Bn Designation</th>
-                                    <th>Description</th>
+                                    <th>En Description</th>
                                     <th>Bn Description</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                    <tr>
-                                  <td>Sl</td>
-                                        <td>Image</td>
-                                        <td>Name</td>
-                                        <td>Bn Name</td>
-                                        <td>Designation</td>
-                                        <td>Bn Designation</td>
-                                        <td>Description</td>
-                                        <td>Bn Description</td>
-                                        <td>
-                                            <div class="form-button-action d-flex align-items-center">
-                                                <a href=""
-                                                    class="btn btn-link btn-primary btn-lg"> <i class="fa fa-edit"></i></a>
-                                                <form action="#" method="POST"
-                                                    style="display: inline-block;">
-                                                    
-                                                    <button type="submit" class="btn btn-link btn-danger"
-                                                        onclick="return confirm('Are you sure to delete this?')"><i
-                                                            class="fa fa-trash"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                @foreach ($teams as $team)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/'.$team->image) }}" alt="image" width="50px" height="50px">
+                                    </td>
+                                    <td>{{ $team->en_name }}</td>
+                                    <td>{{ $team->bn_name }}</td>
+                                    <td>{{ $team->en_designation }}</td>
+                                    <td>{{ $team->bn_designation }}</td>
+                                    <td>{{ $team->en_description }}</td>
+                                    <td>{{ $team->bn_description }}</td>
+                                    <td>
+                                        <div class="form-button-action d-flex align-items-center">
+                                            <form action="{{ route('team.destroy', $team->id) }}" method="POST" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link btn-danger" onclick="return confirm('Are you sure to delete this?')">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

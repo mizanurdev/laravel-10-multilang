@@ -24,6 +24,8 @@ Route::middleware(['auth','role:user','verified'])->group(function () {
 Route::middleware(['auth','role:admin','verified'])->group(function () {
     Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
     Route::get('/admin/dashboard/team',[TeamController::class,'index'])->name('team.index');
+    Route::post('/admin/dashboard/team/store',[TeamController::class,'store'])->name('team.store');
+    Route::delete('/admin/dashboard/team/delete/{id}',[TeamController::class,'destroy'])->name('team.destroy');
 });
 
 
