@@ -163,7 +163,17 @@
             }
           </style>
           </li>
-          <li><a href="#hero" class="active">Home</a></li>
+          <div class="lang_change">
+              @php
+              $currentLocale = app()->getLocale();
+              $englishLink = $currentLocale == 'en' ? url()->current() : str_replace('/bn', '', url()->current());
+              $banglaLink = $currentLocale == 'en' ? (request()->path() == '/' ? '/bn' : '/bn/' . request()->path()) : url()->current();
+              @endphp
+
+              <a class="lang_item{{ $currentLocale == 'en' ? ' lang_item_active' : '' }} text-dark" href="{{ $englishLink }}">Eng</a>
+              <a class="lang_item{{ $currentLocale == 'bn' ? ' lang_item_active' : '' }} text-dark" href="{{ $banglaLink }}">বাংলা</a>
+          </div>
+          <li><a href="#hero" class="active">{{__('Home')}}</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#contact">Contact</a></li>
