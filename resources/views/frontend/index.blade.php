@@ -4,10 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Laravel 10 Multi Language Examle</title>
+  <title>Laravel 10 Multi Language Example</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
-
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -22,14 +21,6 @@
 
   <!-- Main CSS File -->
   <link href="{{ asset('frontend') }}/assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Arsha
-  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="index-page">
@@ -37,158 +28,39 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="{{ route('home.page') }}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="{{ asset('frontend') }}/assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">English</h1>
+        <h1 class="sitename">{{__('English')}}</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li>
-          <div class="switch">
-            <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox">
-            <label for="language-toggle"></label>
-            <span class="on">BN</span>
-            <span class="off">EN</span>
-          </div>
-          <style>
-            .switch {
-              position: relative;
-              display: inline-block;
-              margin: 0 5px;
-            }
-
-            .switch > span {
-              position: absolute;
-              top: 10px;
-              pointer-events: none;
-              font-family: 'Helvetica', Arial, sans-serif;
-              font-weight: bold;
-              font-size: 12px;
-              text-transform: uppercase;
-              text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
-              width: 50%;
-              text-align: center;
-            }
-
-            input.check-toggle-round-flat:checked ~ .off {
-              color: #6ec3e8;
-            }
-
-            input.check-toggle-round-flat:checked ~ .on {
-              color: #fff;
-            }
-
-            .switch > span.on {
-              left: 0;
-              padding-left: 2px;
-              color: #6ec3e8;
-            }
-
-            .switch > span.off {
-              right: 0;
-              padding-right: 4px;
-              color: #fff;
-            }
-
-            .check-toggle {
-              position: absolute;
-              margin-left: -9999px;
-              visibility: hidden;
-            }
-            .check-toggle + label {
-              display: block;
-              position: relative;
-              cursor: pointer;
-              outline: none;
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-            }
-
-            input.check-toggle-round-flat + label {
-              padding: 2px;
-              width: 97px;
-              height: 35px;
-              background-color: #6ec3e8;
-              -webkit-border-radius: 60px;
-              -moz-border-radius: 60px;
-              -ms-border-radius: 60px;
-              -o-border-radius: 60px;
-              border-radius: 60px;
-            }
-            input.check-toggle-round-flat + label:before, input.check-toggle-round-flat + label:after {
-              display: block;
-              position: absolute;
-              content: "";
-            }
-
-            input.check-toggle-round-flat + label:before {
-              top: 2px;
-              left: 2px;
-              bottom: 2px;
-              right: 2px;
-              background-color: #6ec3e8;
-              -webkit-
-              
-              -moz-border-radius: 60px;
-              -ms-border-radius: 60px;
-              -o-border-radius: 60px;
-              border-radius: 60px;
-            }
-            input.check-toggle-round-flat + label:after {
-              top: 4px;
-              left: 4px;
-              bottom: 4px;
-              width: 48px;
-              background-color: #fff;
-              -webkit-border-radius: 52px;
-              -moz-border-radius: 52px;
-              -ms-border-radius: 52px;
-              -o-border-radius: 52px;
-              border-radius: 52px;
-              -webkit-transition: margin 0.2s;
-              -moz-transition: margin 0.2s;
-              -o-transition: margin 0.2s;
-              transition: margin 0.2s;
-            }
-
-            input.check-toggle-round-flat:checked + label {
-            }
-
-            input.check-toggle-round-flat:checked + label:after {
-              margin-left: 44px;
-            }
-          </style>
+              <div class="switch">
+                  <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox" 
+                        @if(app()->getLocale() == 'bn') checked @endif>
+                  <label for="language-toggle"></label>
+                  <span class="on">ENG</span>
+                  <span class="off">বাংলা</span>
+              </div>
           </li>
-          <div class="lang_change">
-              @php
-              $currentLocale = app()->getLocale();
-              $englishLink = $currentLocale == 'en' ? url()->current() : str_replace('/bn', '', url()->current());
-              $banglaLink = $currentLocale == 'en' ? (request()->path() == '/' ? '/bn' : '/bn/' . request()->path()) : url()->current();
-              @endphp
-
-              <a class="lang_item{{ $currentLocale == 'en' ? ' lang_item_active' : '' }} text-dark" href="{{ $englishLink }}">Eng</a>
-              <a class="lang_item{{ $currentLocale == 'bn' ? ' lang_item_active' : '' }} text-dark" href="{{ $banglaLink }}">বাংলা</a>
-          </div>
-          <li><a href="#hero" class="active">{{__('Home')}}</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="{{ route('home.page') }}" class="active">{{__('Home')}}</a></li>
+          <li><a href="#about">{{__('About')}}</a></li>
+          <li><a href="#team">{{__('Team')}}</a></li>
+          <li><a href="#contact">{{__('Contact')}}</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
       @if (Route::has('login'))
           @auth
               @if (Auth::user()->role === 'admin')
-                  <a href="{{ url('/admin/dashboard') }}" class="btn-getstarted">Dashboard</a>
+                  <a href="{{ url('/admin/dashboard') }}" class="btn-getstarted">{{__('Dashboard')}}</a>
               @else
-                  <a href="{{ url('/dashboard') }}" class="btn-getstarted">Dashboard</a>
+                  <a href="{{ url('/dashboard') }}" class="btn-getstarted">{{__('Dashboard')}}</a>
               @endif
           @else
-              <a href="{{ route('login') }}" class="btn-getstarted">Login</a>
+              <a href="{{ route('login') }}" class="btn-getstarted">{{__('Login')}}</a>
           @endauth
       @endif
     </div>
@@ -202,11 +74,11 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-            <h1>Better Solutions For Your Business</h1>
-            <p>We are team of talented designers making websites with Bootstrap</p>
+            <h1>{{__('Better Solutions For Your Business')}}</h1>
+            <p>{{__('We are team of talented designers making websites with Bootstrap')}}</p>
             <div class="d-flex">
-              <a href="#about" class="btn-get-started">Get Started</a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+              <a href="#about" class="btn-get-started">{{__('Get Started')}}</a>
+              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>{{__('Watch Video')}}</span></a>
             </div>
           </div>
           <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
@@ -258,21 +130,21 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Team</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <h2>{{__('Team')}}</h2>
+        <p>{{__('Experts Dedicated to Delivering Outstanding Results')}}</p>
       </div><!-- End Section Title -->
 
       <div class="container">
 
         <div class="row gy-4">
-
+          @foreach ($teams as $team)
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <div class="team-member d-flex align-items-start">
-              <div class="pic"><img src="{{ asset('frontend') }}/assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="{{ asset('storage/'.$team->image) }}" class="img-fluid" alt=""></div>
               <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-                <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+                <h4>{{ $team->{app()->getLocale() . '_name'} }}</h4>
+                <span>{{ $team->{app()->getLocale() . '_designation'} }}</span>
+                <p>{{ $team->{app()->getLocale() . '_description'} }}</p>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -282,60 +154,8 @@
               </div>
             </div>
           </div><!-- End Team Member -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-member d-flex align-items-start">
-              <div class="pic"><img src="{{ asset('frontend') }}/assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Product Manager</span>
-                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""> <i class="bi bi-linkedin"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-member d-flex align-items-start">
-              <div class="pic"><img src="{{ asset('frontend') }}/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
-                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""> <i class="bi bi-linkedin"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="team-member d-flex align-items-start">
-              <div class="pic"><img src="{{ asset('frontend') }}/assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""> <i class="bi bi-linkedin"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
         </div>
-
+        @endforeach
       </div>
 
     </section><!-- /Team Section -->
@@ -449,10 +269,6 @@
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">Arsha</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
@@ -477,6 +293,112 @@
 
   <!-- Main JS File -->
   <script src="{{ asset('frontend') }}/assets/js/main.js"></script>
+  <style>
+        /* Style for the switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .switch > span {
+            position: absolute;
+            top: 10px;
+            pointer-events: none;
+            font-family: 'Helvetica', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+            width: 50%;
+            text-align: center;
+        }
+        input.check-toggle-round-flat:checked ~ .off {
+            color: #6ec3e8;
+        }
+        input.check-toggle-round-flat:checked ~ .on {
+            color: #fff;
+        }
+        .switch > span.on {
+            left: 0;
+            padding-left: 2px;
+            color: #6ec3e8;
+        }
+        .switch > span.off {
+            right: 0;
+            padding-right: 4px;
+            color: #fff;
+        }
+        .check-toggle {
+            position: absolute;
+            margin-left: -9999px;
+            visibility: hidden;
+        }
+        .check-toggle + label {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+        }
+        input.check-toggle-round-flat + label {
+            padding: 2px;
+            width: 97px;
+            height: 35px;
+            background-color: #6ec3e8;
+            border-radius: 60px;
+        }
+        input.check-toggle-round-flat + label:before, input.check-toggle-round-flat + label:after {
+            display: block;
+            position: absolute;
+            content: "";
+        }
+        input.check-toggle-round-flat + label:before {
+            top: 2px;
+            left: 2px;
+            bottom: 2px;
+            right: 2px;
+            background-color: #6ec3e8;
+            border-radius: 60px;
+        }
+        input.check-toggle-round-flat + label:after {
+            top: 4px;
+            left: 4px;
+            bottom: 4px;
+            width: 48px;
+            background-color: #fff;
+            border-radius: 52px;
+            transition: margin 0.2s;
+        }
+        input.check-toggle-round-flat:checked + label:after {
+            margin-left: 44px;
+        }
+    </style>
+    <script>
+      /* script for the switch */
+      const languageToggle = document.getElementById('language-toggle');
+      languageToggle.addEventListener('change', function() {
+          const currentLocale = '{{ app()->getLocale() }}';
+          let newLocale = languageToggle.checked ? 'bn' : 'en';
+
+          let currentUrl = window.location.href;
+          if (newLocale === 'bn') {
+              if (currentUrl === window.location.origin + '/') {
+                  window.location.href = window.location.origin + '/bn';
+              } else {
+                  let newUrl = currentUrl.replace(`${window.location.origin}/`, `${window.location.origin}/bn/`);
+                  window.location.href = newUrl;
+              }
+          }
+          else {
+              if (currentUrl === window.location.origin + '/bn') {
+                  window.location.href = window.location.origin + '/';
+              } else {
+                  let newUrl = currentUrl.replace(`${window.location.origin}/bn`, `${window.location.origin}/`);
+                  window.location.href = newUrl;
+              }
+          }
+      });
+  </script>
 
 </body>
 

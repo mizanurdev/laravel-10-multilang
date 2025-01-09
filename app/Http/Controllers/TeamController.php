@@ -23,7 +23,7 @@ class TeamController extends Controller
     public function index() {
         $teams = Team::all();
         return view('backend.admin.team.index',[
-            'teams' => $teams
+            'teams' => $teams,
         ]);
     }
 

@@ -1,0 +1,187 @@
+Step 1: (web.php)
+-------------------------------------------------------------------------------------------------------------------
+if (!function_exists('parseLocale')) {
+    function parseLocale()
+    {
+        $locale = request()->segment(1);
+        if (in_array($locale, ['js', 'css'])) {
+            return $locale;
+        }
+        if (array_key_exists($locale, config('languages'))) {
+            app()->setLocale($locale);
+            return $locale;
+        }
+        app()->setLocale('en');
+        return '/';
+    }
+}
+
+Route::prefix(parseLocale())->group(function () {
+    // Write your all routes here
+});
+
+Step 2: (config/languages.php)
+-------------------------------------------------------------------------------------------------------------------
+<?php
+return [
+    'en' => [
+        'display' => 'English',
+    ],
+    'bn' => [
+        'display' => 'Bangla',
+    ],
+];
+
+Step 3: (resources/lang/bn.json)
+-------------------------------------------------------------------------------------------------------------------
+{
+    "English": "বাংলা",
+    "Home": "হোম",
+    "About": "সম্পর্কে",
+    "Team": "টিম",
+    "Contact": "যোগাযোগ",
+    "Login": "লগইন",
+    "Dashboard": "ড্যাসবোর্ড",
+    "": ""
+}
+
+Step 4: (your_filename.blade.php)
+-------------------------------------------------------------------------------------------------------------------
+********** Static Example **********
+<nav>
+    <ul>
+        <li><a href="{{ route('home.page') }}" class="active">{{__('Home')}}</a></li>
+        <li><a href="#about">{{__('About')}}</a></li>
+        <li><a href="#team">{{__('Team')}}</a></li>
+        <li><a href="#contact">{{__('Contact')}}</a></li>
+    </ul>
+</nav>
+
+********** Dynamic Example **********
+@foreach ($teams as $team)
+    <div>
+        <img src="{{ asset('storage/'.$team->image) }}">
+        <h4>{{ $team->{app()->getLocale() . '_name'} }}</h4>
+        <span>{{ $team->{app()->getLocale() . '_designation'} }}</span>
+        <p>{{ $team->{app()->getLocale() . '_description'} }}</p>
+    </div>
+@endforeach
+
+********** Change Switch **********
+<div class="switch">
+    <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox" 
+        @if(app()->getLocale() == 'bn') checked @endif>
+    <label for="language-toggle"></label>
+    <span class="on">ENG</span>
+    <span class="off">বাংলা</span>
+</div>
+<style>
+    /* Style for the switch */
+    .switch {
+        position: relative;
+        display: inline-block;
+        margin: 0 5px;
+    }
+    .switch > span {
+        position: absolute;
+        top: 10px;
+        pointer-events: none;
+        font-family: 'Helvetica', Arial, sans-serif;
+        font-weight: bold;
+        font-size: 12px;
+        text-transform: uppercase;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+        width: 50%;
+        text-align: center;
+    }
+    input.check-toggle-round-flat:checked ~ .off {
+        color: #6ec3e8;
+    }
+    input.check-toggle-round-flat:checked ~ .on {
+        color: #fff;
+    }
+    .switch > span.on {
+        left: 0;
+        padding-left: 2px;
+        color: #6ec3e8;
+    }
+    .switch > span.off {
+        right: 0;
+        padding-right: 4px;
+        color: #fff;
+    }
+    .check-toggle {
+        position: absolute;
+        margin-left: -9999px;
+        visibility: hidden;
+    }
+    .check-toggle + label {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        outline: none;
+        user-select: none;
+    }
+    input.check-toggle-round-flat + label {
+        padding: 2px;
+        width: 97px;
+        height: 35px;
+        background-color: #6ec3e8;
+        border-radius: 60px;
+    }
+    input.check-toggle-round-flat + label:before, input.check-toggle-round-flat + label:after {
+        display: block;
+        position: absolute;
+        content: "";
+    }
+    input.check-toggle-round-flat + label:before {
+        top: 2px;
+        left: 2px;
+        bottom: 2px;
+        right: 2px;
+        background-color: #6ec3e8;
+        border-radius: 60px;
+    }
+    input.check-toggle-round-flat + label:after {
+        top: 4px;
+        left: 4px;
+        bottom: 4px;
+        width: 48px;
+        background-color: #fff;
+        border-radius: 52px;
+        transition: margin 0.2s;
+    }
+    input.check-toggle-round-flat:checked + label:after {
+        margin-left: 44px;
+    }
+</style>
+<script>
+    /* script for the switch */
+    const languageToggle = document.getElementById('language-toggle');
+    languageToggle.addEventListener('change', function() {
+        const currentLocale = '{{ app()->getLocale() }}';
+        let newLocale = languageToggle.checked ? 'bn' : 'en';
+
+        let currentUrl = window.location.href;
+        if (newLocale === 'bn') {
+            if (currentUrl === window.location.origin + '/') {
+                window.location.href = window.location.origin + '/bn';
+            } else {
+                let newUrl = currentUrl.replace(`${window.location.origin}/`, `${window.location.origin}/bn/`);
+                window.location.href = newUrl;
+            }
+        }
+        else {
+            if (currentUrl === window.location.origin + '/bn') {
+                window.location.href = window.location.origin + '/';
+            } else {
+                let newUrl = currentUrl.replace(`${window.location.origin}/bn`, `${window.location.origin}/`);
+                window.location.href = newUrl;
+            }
+        }
+    });
+</script>
+
+
+Thank You 
+-------------------------------------------------------------------------------------------------------------------

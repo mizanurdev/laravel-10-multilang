@@ -7,7 +7,21 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-
+if (!function_exists('parseLocale')) {
+    function parseLocale()
+    {
+        $locale = request()->segment(1);
+        if (in_array($locale, ['js', 'css'])) {
+            return $locale;
+        }
+        if (array_key_exists($locale, config('languages'))) {
+            app()->setLocale($locale);
+            return $locale;
+        }
+        app()->setLocale('en');
+        return '/';
+    }
+}
 Route::prefix(parseLocale())->group(function () {
 
     Route::get('/',[FrontendController::class,'index'])->name('home.page');
@@ -26,21 +40,6 @@ Route::prefix(parseLocale())->group(function () {
         Route::delete('/admin/dashboard/team/delete/{id}',[TeamController::class,'destroy'])->name('team.destroy');
     });
 });
-if (!function_exists('parseLocale')) {
-    function parseLocale()
-    {
-        $locale = request()->segment(1);
-        if (in_array($locale, ['js', 'css'])) {
-            return $locale;
-        }
-        if (array_key_exists($locale, config('languages'))) {
-            app()->setLocale($locale);
-            return $locale;
-        }
-        app()->setLocale('en');
-        return '/';
-    }
-}
 
 
 require __DIR__.'/auth.php';
