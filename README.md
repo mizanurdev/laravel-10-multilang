@@ -1,16 +1,9 @@
-# Laravel 10 Multi Authentication System
+# Laravel 10 Multi Language En/Bn System
 
-This project implements a **Multi-Authentication System** in Laravel 11, allowing for three types of users: **Admin**, and **User**. Each type of user has access to their own dashboard and cannot access the URLs of other user types. This is a simple but effective multi-auth setup for role-based access control.
 ## Author
 - **Name:** Md. Mizanur Rahman
 - **Email:** mizancse2018@gmail.com
 
-## Features
-
-- **Multi-Authentication** with three user roles: **Admin**, and **User**.
-- Separate login and dashboard views for each role.
-- Restricted access to other users' URLs (e.g., a **User** cannot access **Admin** dashboards).
-- Basic authentication system using Laravel’s built-in authentication features.
 
 ## Installation
 
@@ -19,11 +12,11 @@ To set up the project locally, follow these steps:
 ### 1. Clone the repository:
 
 ```bash
-git clone https://github.com/mizanurdev/laravel-10-multiauth.git
+git clone https://github.com/mizanurdev/laravel-10-multilang.git
 ```
 ### 2. Navigate to the project directory:
 ```
-cd laravel-10-multiauth
+cd laravel-10-multilang
 ```
 
 ### 3. Install dependencies:
@@ -38,13 +31,11 @@ npm run dev
 ```
 cp .env.example .env
 ```
-- Update the .env file with your database and other configuration details:
-- note: MAIL_USERNAME=(your mailtrap username MAIL_PASSWORD=(your mailtrap password)
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=laravel_multiauth
+DB_DATABASE=laravel_multilang
 DB_USERNAME=root
 DB_PASSWORD=
 
@@ -74,7 +65,7 @@ set database name in env file first
 - email: user@test.com
 - password: 12345678
 #### 2. For admin
-- email: admin@test.com
+- username: superadmin
 - password: 12345678
 
 ### 7. Run the application:
@@ -83,20 +74,6 @@ php artisan serve
 ```
 Now, the application should be running at http://127.0.0.1:8000.
 
-### User Roles and Dashboards
-This system supports three user roles: Admin, and User. Each role has access to its own login and dashboard.
-
-- Admin: Can manage Users but has no access to Master areas.
-- User: Regular users with access to user-specific functionality.
-
-### URLs
-- Admin Login: /login
-- User Login: /login
-
-After login, each user will be redirected to their respective dashboard.
-
-- Admin Dashboard: /admin/dashboard
-- User Dashboard: /dashboard
 
 ### Contributing
 
